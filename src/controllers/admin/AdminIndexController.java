@@ -1,0 +1,40 @@
+package controllers.admin;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import daos.CategoryDAO;
+import daos.SongDAO;
+import daos.UserDAO;
+
+public class AdminIndexController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	public AdminIndexController() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		CategoryDAO catDAO = new CategoryDAO();
+		SongDAO songDAO = new SongDAO();
+		UserDAO userDAO = new UserDAO();
+		request.setAttribute("countCat", catDAO.countItems());
+		request.setAttribute("countSong", songDAO.countItems());
+		request.setAttribute("countUser", userDAO.countItems());
+
+		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/index.jsp");
+		rd.forward(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
+
+}
