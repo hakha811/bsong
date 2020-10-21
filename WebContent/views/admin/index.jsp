@@ -34,6 +34,9 @@
                     </div>
                 </div>
             </div>
+            <%
+            	if(AuthUtil.checkRole(request, response) == 2) {
+            %>
             <div class="col-md-4 col-sm-4 col-xs-4">
                 <div class="panel panel-back noti-box" style="height:183px;">
                     <span class="icon-box bg-color-brown set-icon">
@@ -45,6 +48,9 @@
                     </div>
                 </div>
             </div>
+            <%
+            	}
+            %>
         </div>
 
     </div>

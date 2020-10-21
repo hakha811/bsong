@@ -14,16 +14,19 @@ import daos.UserDAO;
 
 public class AdminIndexController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	CategoryDAO catDAO = null;
+	SongDAO songDAO = null;
+	UserDAO userDAO = null;
 
 	public AdminIndexController() {
 		super();
+		catDAO = new CategoryDAO();
+		songDAO = new SongDAO();
+		userDAO = new UserDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		CategoryDAO catDAO = new CategoryDAO();
-		SongDAO songDAO = new SongDAO();
-		UserDAO userDAO = new UserDAO();
 		request.setAttribute("countCat", catDAO.countItems());
 		request.setAttribute("countSong", songDAO.countItems());
 		request.setAttribute("countUser", userDAO.countItems());

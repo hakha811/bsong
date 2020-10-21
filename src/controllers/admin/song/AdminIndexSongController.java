@@ -14,22 +14,25 @@ import models.Song;
 
 public class AdminIndexSongController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public AdminIndexSongController() {
-        super();
-    }
+	SongDAO songDAO = null;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		SongDAO songDAO = new SongDAO();
+	public AdminIndexSongController() {
+		super();
+		songDAO = new SongDAO();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		List<Song> listSong = songDAO.getAll();
-		
+
 		request.setAttribute("listSong", listSong);
-		
+
 		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/song/index.jsp");
 		rd.forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

@@ -14,14 +14,15 @@ import models.Contact;
 
 public class AdminIndexContactController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	ContactDAO contactDAO = null;
 
 	public AdminIndexContactController() {
 		super();
+		contactDAO = new ContactDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ContactDAO contactDAO = new ContactDAO();
 		List<Contact> listContact = contactDAO.getAll();
 
 		request.setAttribute("listContact", listContact);

@@ -1,3 +1,4 @@
+<%@page import="utils.StringUtil"%>
 <%@page import="daos.SongDAO"%>
 <%@page import="daos.CategoryDAO"%>
 <%@page import="models.Song"%>
@@ -23,8 +24,9 @@
 		List<Category> listCat = catDAO.getAll();
 	  	if(listCat != null) {
 	  		for(Category item : listCat) {
+	  			String urlSlug = request.getContextPath()+"/danh-muc/"+StringUtil.makeSlug(item.getName())+"-"+item.getId()+".html";
 	%>
-    		<li><a href="<%=request.getContextPath()%>/category?id=<%=item.getId() %>"><%=item.getName() %></a></li>
+    		<li><a href="<%=urlSlug %>"><%=item.getName() %></a></li>
 	<%
 	  		}
 	  	}
@@ -41,8 +43,9 @@
 		List<Song> listNewSong = songDAO.getItems(6);
 	  	if(listNewSong != null) {
 	  		for(Song song : listNewSong) {
+	  			String urlSlug = request.getContextPath()+"/chi-tiet/"+StringUtil.makeSlug(song.getName())+"-"+song.getId()+".html";
 	%>
-	    <li><a href="<%=request.getContextPath()%>/detail?id=<%=song.getId() %>"><%=song.getName() %></a><br />
+	    <li><a href="<%=urlSlug %>"><%=song.getName() %></a><br />
     <%
 	  		}
 	  	}

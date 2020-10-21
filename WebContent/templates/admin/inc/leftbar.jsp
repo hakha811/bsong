@@ -1,3 +1,4 @@
+<%@page import="utils.AuthUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%
@@ -18,12 +19,18 @@
             <li>
                 <a id="song" href="<%=request.getContextPath()%>/admin/song"><i class="fa fa-music fa-3x"></i> Quản lý bài hát</a>
             </li>
+            <%
+            	if(AuthUtil.checkRole(request, response) == 2) {
+            %>
             <li>
                 <a id="user" href="<%=request.getContextPath()%>/admin/user"><i class="fa fa-user fa-3x"></i> Quản lý người dùng</a>
             </li>
             <li>
                 <a id="contact" href="<%=request.getContextPath()%>/admin/contact"><i class="fa fa-envelope fa-3x"></i> Quản lý liên hệ</a>
             </li>
+            <%
+            	}
+            %>
         </ul>
     </div>
 </nav>

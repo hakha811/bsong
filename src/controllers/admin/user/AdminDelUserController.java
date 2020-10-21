@@ -7,18 +7,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import daos.RoleDAO;
 import daos.UserDAO;
 
 public class AdminDelUserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	UserDAO userDAO = null;
+	RoleDAO roleDAO = null;
 
 	public AdminDelUserController() {
 		super();
+		userDAO = new UserDAO();
+		roleDAO = new RoleDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		UserDAO userDAO = new UserDAO();
 		int id = 0;
 		try {
 			id = Integer.parseInt(request.getParameter("id"));
@@ -28,6 +32,7 @@ public class AdminDelUserController extends HttpServlet {
 		}
 		int result = userDAO.deleteItem(id);
 		if (result > 0) {
+			roleDAO.deleteItem(id);
 			response.sendRedirect(request.getContextPath() + "/admin/user?msg=3");
 			return;
 		}

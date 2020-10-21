@@ -13,9 +13,11 @@ import models.Category;
 
 public class AdminEditCatController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	CategoryDAO catDAO = null;
 
 	public AdminEditCatController() {
 		super();
+		catDAO = new CategoryDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -27,7 +29,6 @@ public class AdminEditCatController extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/404");
 			return;
 		}
-		CategoryDAO catDAO = new CategoryDAO();
 		Category cat = catDAO.getItemById(id);
 		request.setAttribute("cat", cat);
 
@@ -48,7 +49,6 @@ public class AdminEditCatController extends HttpServlet {
 		}
 
 		Category cat = new Category(id, name);
-		CategoryDAO catDAO = new CategoryDAO();
 		int result = catDAO.updateItem(cat);
 
 		if (result > 0) {

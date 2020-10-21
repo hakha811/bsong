@@ -13,14 +13,15 @@ import utils.FileUtil;
 
 public class AdminDelSongController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	SongDAO songDAO = null;
 
 	public AdminDelSongController() {
 		super();
+		songDAO = new SongDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		SongDAO songDAO = new SongDAO();
 		int id = 0;
 		try {
 			id = Integer.parseInt(request.getParameter("id"));

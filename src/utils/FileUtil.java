@@ -27,15 +27,6 @@ public class FileUtil {
 		return nameFile;
 	}
 
-	public static String getName(final Part part) {
-		for (String content : part.getHeader("content-disposition").split(";")) {
-			if (content.trim().startsWith("filename")) {
-				return content.substring(content.indexOf('=') + 1).trim().replace("\"", "");
-			}
-		}
-		return null;
-	}
-
 	public static String uploadImage(String nameInput, HttpServletRequest request) {
 		try {
 			Part filePart = request.getPart(nameInput);
@@ -56,7 +47,8 @@ public class FileUtil {
 	}
 
 	public static boolean deleteImage(String name, HttpServletRequest request) {
-		File image = new File(request.getServletContext().getRealPath("") + Constants.DIR_UPLOAD + name);
+		File image = new File(
+				request.getServletContext().getRealPath("") + Constants.DIR_UPLOAD + File.separator + name);
 		if (image.delete()) {
 			return true;
 		}

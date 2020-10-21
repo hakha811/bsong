@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import daos.RoleDAO;
 import daos.UserDAO;
 import models.User;
 import utils.StringUtil;
@@ -16,10 +17,12 @@ import utils.StringUtil;
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	UserDAO userDAO = null;
+	RoleDAO roleDAO = null;
 
 	public LoginController() {
 		super();
 		userDAO = new UserDAO();
+		roleDAO = new RoleDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -40,7 +43,10 @@ public class LoginController extends HttpServlet {
 
 		User user = userDAO.isUser(username, password);
 		if (user != null) {
+			int id = userDAO.getIdByName(username);
+			String role = roleDAO.getRole(id);
 			session.setAttribute("username", username);
+			session.setAttribute("role", role);
 			response.sendRedirect(request.getContextPath() + "/admin");
 			return;
 		}

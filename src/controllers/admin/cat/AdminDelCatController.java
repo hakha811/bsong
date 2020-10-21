@@ -11,14 +11,15 @@ import daos.CategoryDAO;
 
 public class AdminDelCatController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	CategoryDAO catDAO = null;
 
 	public AdminDelCatController() {
 		super();
+		catDAO = new CategoryDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		CategoryDAO catDAO = new CategoryDAO();
 		int id = 0;
 		try {
 			id = Integer.parseInt(request.getParameter("id"));

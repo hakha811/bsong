@@ -1,0 +1,12 @@
+<urlrewrite>
+	<rule>
+		<!-- path danh muc -->
+		<from>/danh-muc/(.*)-([0-9]*).html</from>
+		<to>/category?id=$2</to>
+	</rule>
+	<rule>
+		<!-- path chi tiet -->
+		<from>/chi-tiet/(.*)-([0-9]*).html</from>
+		<to>/detail?id=$2</to>
+	</rule>
+</urlrewrite>

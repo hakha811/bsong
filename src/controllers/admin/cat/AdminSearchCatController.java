@@ -14,9 +14,11 @@ import models.Category;
 
 public class AdminSearchCatController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	CategoryDAO catDAO = null;
 
 	public AdminSearchCatController() {
 		super();
+		catDAO = new CategoryDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -27,7 +29,6 @@ public class AdminSearchCatController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		CategoryDAO catDAO = new CategoryDAO();
 		String name = request.getParameter("name") == null ? "" : request.getParameter("name");
 		List<Category> listCat = catDAO.getItemsByName(name);
 

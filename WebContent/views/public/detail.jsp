@@ -24,23 +24,15 @@
     <%
   			List<Song> listSongRelated = (List<Song>)request.getAttribute("listSongRelated");
   			for(Song item : listSongRelated) {
+  				String urlSlug = request.getContextPath()+"/chi-tiet/"+StringUtil.makeSlug(item.getName())+"-"+item.getId()+".html";
+  				String picture = "".equals(item.getPicture())?"songdefault.jpg":item.getPicture();
     %>
     <div class="article">
       <div class="clr"></div>
       <div class="comment"> <a href="">
-      <%
-      	if(!"".equals(item.getPicture())) {
-      %>
-		<img src="<%=request.getContextPath() %>/templates/images/<%=item.getPicture() %>" width="40" height="40" class="userpic" alt="<%=item.getName() %>"/>
-      <%
-      	} else {
-      %>
-      <img src="<%=request.getContextPath() %>/templates/images/<%=item.getPicture() %>" width="40" height="40" class="userpic" alt="Không có hình ảnh"/>
-      <%
-      	}
-      %>
+		<img src="<%=request.getContextPath() %>/templates/images/<%=picture %>" width="40" height="40" class="userpic" alt="<%=item.getName() %>"/>
       </a>
-        <h2><a href="<%=request.getContextPath() %>/detail?id=<%=item.getId() %>"><%=item.getName() %></a></h2>
+        <h2><a href="<%=urlSlug %>"><%=item.getName() %></a></h2>
         <p><%=item.getPreview_text() %></p>
       </div>
     </div>

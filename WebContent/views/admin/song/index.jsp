@@ -76,23 +76,14 @@
                                 	if(request.getAttribute("listSong") != null) {
                                 		List<Song> listSong = (List<Song>)request.getAttribute("listSong");
                                 		for(Song song : listSong) {
+                                			String picture = "".equals(song.getPicture())?"songdefault.jpg":song.getPicture();
                                 %>
                                     <tr>
                                         <td><%=song.getId() %></td>
                                         <td class="center"><%=song.getName() %></td>
                                         <td class="center"><%=song.getCat().getName() %></td>
                                         <td class="center cenimg">
-                                        <%
-                                        	if(!"".equals(song.getPicture())) {
-                                        %>
-											<img src="<%=request.getContextPath() %>/templates/images/<%=song.getPicture() %>" width="300" height="200" alt="<%=song.getName() %>"/>
-                                        <%
-                                        	} else {
-                                        %>
-                                        	<img src="<%=request.getContextPath() %>/templates/images/songdefault.jpg" width="300" height="200" alt="Không có hình ảnh"/>
-                                        <%
-                                        	}
-                                        %>
+										<img src="<%=request.getContextPath() %>/templates/images/<%=picture %>" width="300" height="200" alt="<%=song.getName() %>"/>
                                         </td>
                                         <td class="center"><%=song.getCounter() %></td>
                                         <td class="center">

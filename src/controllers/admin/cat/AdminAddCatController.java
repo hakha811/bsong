@@ -13,9 +13,11 @@ import models.Category;
 
 public class AdminAddCatController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	CategoryDAO catDAO = null;
 
 	public AdminAddCatController() {
 		super();
+		catDAO = new CategoryDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -27,22 +29,20 @@ public class AdminAddCatController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		CategoryDAO catDAO = new CategoryDAO();
 		String name = request.getParameter("name");
 		Category cat = new Category(0, name);
 		request.setAttribute("cat", cat);
-		
-		if(!catDAO.checkName(name)) {
+
+		if (!catDAO.checkName(name)) {
 			RequestDispatcher rd = request.getRequestDispatcher("/views/admin/cat/add.jsp?msg=2");
 			rd.forward(request, response);
 			return;
 		}
 
 		int result = catDAO.addItem(cat);
-		if(result > 0) {
-			response.sendRedirect(request.getContextPath()+"/admin/cat?msg=1");
-		}
-		else {
+		if (result > 0) {
+			response.sendRedirect(request.getContextPath() + "/admin/cat?msg=1");
+		} else {
 			RequestDispatcher rd = request.getRequestDispatcher("/views/admin/cat/add.jsp?msg=1");
 			rd.forward(request, response);
 		}

@@ -11,8 +11,8 @@
             </div>
         </div>
         <%
-	        if(request.getAttribute("msg")!=null){
-				int msg = (int)request.getAttribute("msg");
+	        if(request.getParameter("msg")!=null){
+	        	int msg = Integer.parseInt(request.getParameter("msg"));
         %>
         <div class="alert alert-danger">
 		  	<strong>
@@ -50,10 +50,33 @@
                                         <input type="text" id="name" value="<%=user.getFullname() %>" name="name" class="form-control" required/>
                                     </div>
                                     <div class="form-group">
+										<label for="role">Vai trò</label> 
+									<select id="role" name="role" class="form-control">
+										<%
+											if(request.getAttribute("role").equals("admin")) {
+										%>
+										<option value="admin" selected>admin</option>
+										<option value="editor">editor</option>
+										<%
+											} else {
+										%>
+										<option value="admin">admin</option>
+										<option value="editor" selected>editor</option>
+										<%
+											}
+										%>
+									</select>
+									</div>
+                                    <div class="form-group">
                                         <label for="username">Tên đăng nhập</label>
                                         <input type="text" id="username" value="<%=user.getUsername() %>" name="username" class="form-control" readonly required/>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="password">Mật khẩu</label>
+                                        <input type="password" id="password" value="********" name="password" class="form-control" readonly/>
+                                    </div>
                                     <button type="submit" name="submit" class="btn btn-success btn-md">Sửa</button>
+                                    <a href="<%=request.getContextPath() %>/admin/user/changepass?id=<%=user.getId() %>" title="" class="btn btn-danger">Đổi mật khẩu</a>
                                 </form>
                             </div>
                         </div>

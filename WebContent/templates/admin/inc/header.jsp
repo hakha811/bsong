@@ -1,3 +1,4 @@
+<%@page import="utils.AuthUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <!DOCTYPE html>
@@ -24,9 +25,17 @@
 	rel='stylesheet' type='text/css' />
 </head>
 <%
-	if (session.getAttribute("username") == null) {
-	response.sendRedirect(request.getContextPath() + "/auth/login");
-}
+	if (!AuthUtil.checkLogin(request, response)) {
+		response.sendRedirect(request.getContextPath() + "/auth/login");
+		return;
+	}
+	String urlContact = request.getContextPath() +"/views/admin/contact";
+	String urlUser = request.getContextPath() +"/views/admin/user";
+	String url = request.getContextPath() + request.getServletPath();
+	if(AuthUtil.checkRole(request, response) != 2 && (url.startsWith(urlContact) || url.startsWith(urlUser))) {
+		response.sendRedirect(request.getContextPath() + "/404");
+		return;
+	}
 %>
 <body>
 	<div id="wrapper">
@@ -42,17 +51,11 @@
 				<a class="navbar-brand" href="<%=request.getContextPath()%>/admin">VinaEnter
 					Edu</a>
 			</div>
-			<%
-				if (session.getAttribute("username") != null) {
-			%>
 			<div
 				style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;">
 				Xin chào, <b><%=session.getAttribute("username")%></b> &nbsp; <a
 					href="<%=request.getContextPath()%>/auth/logout"
 					class="btn btn-danger square-btn-adjust">Đăng xuất</a>
 			</div>
-			<%
-				}
-			%>
 		</nav>
 		<!-- /. NAV TOP  -->

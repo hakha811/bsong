@@ -40,8 +40,29 @@ public class UserDAO extends AbstractDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			DBConnectionUtil.close(conn, rs, pst);
 		}
 		return user;
+	}
+
+	public int getIdByName(String username) {
+		int id = 0;
+		conn = DBConnectionUtil.getConnection();
+		final String sql = "SELECT id FROM users WHERE username = ?";
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, username);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				id = rs.getInt("id");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnectionUtil.close(conn, rs, pst);
+		}
+		return id;
 	}
 
 	public List<User> getItemByName(String name) {

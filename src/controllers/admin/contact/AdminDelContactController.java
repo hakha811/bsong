@@ -11,14 +11,15 @@ import daos.ContactDAO;
 
 public class AdminDelContactController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	ContactDAO contactDAO = null;
 
 	public AdminDelContactController() {
 		super();
+		contactDAO = new ContactDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ContactDAO contactDAO = new ContactDAO();
 		int id = 0;
 		try {
 			id = Integer.parseInt(request.getParameter("id"));

@@ -7,7 +7,7 @@
     <div id="page-inner">
         <div class="row">
             <div class="col-md-12">
-                <h2>Thêm người dùng</h2>
+                <h2>Đổi mật khẩu</h2>
             </div>
         </div>
         <%
@@ -19,13 +19,13 @@
 		  	<% 
 				switch(msg){
 				case 0: 
-					out.print("Mật khẩu không trùng nhau!!!");
+					out.print("Có lỗi xảy ra!");
 					break;
 				case 1: 
-					out.print("Tên tài khoản đã tồn tại!!!");
+					out.print("Mật khẩu không khớp!");
 					break;
 				case 2: 
-					out.print("Có lỗi xảy ra!!!");
+					out.print("Sai mật khẩu!");
 					break;
 				}
 		  	%>
@@ -39,44 +39,25 @@
         <div class="row">
             <div class="col-md-12">
                 <!-- Form Elements -->
-                <%
-                	User user = (User)request.getAttribute("user");
-                	String name = "";
-                	String username = "";
-                	if(user != null) {
-                		name = user.getFullname();
-                		username = user.getUsername();
-                	}
-                %>
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <form role="form" action="<%=request.getContextPath() %>/admin/user/add" method="post" id="form">
+                                <form role="form" action="<%=request.getContextPath() %>/admin/user/changepass" method="post" id="form">
                                     <div class="form-group">
-                                        <label for="name">Tên người dùng</label>
-                                        <input type="text" id="name" value="<%=name %>" name="name" class="form-control" required/>
-                                    </div>
-                                    <div class="form-group">
-										<label for="role">Vai trò</label> 
-									<select id="role" name="role" class="form-control">
-										<option value="admin">admin</option>
-										<option value="editor">editor</option>
-									</select>
-									</div>
-                                    <div class="form-group">
-                                        <label for="username">Tên đăng nhập</label>
-                                        <input type="text" id="username" value="<%=username %>" name="username" class="form-control" required/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="password">Mật khẩu</label>
+                                        <label for="password">Mật khẩu cũ</label>
                                         <input type="password" id="password" value="" name="password" class="form-control" required/>
                                     </div>
-                                   <div class="form-group">
-                                        <label for="repassword">Nhập lại mật khẩu</label>
+                                    <div class="form-group">
+                                        <label for="newpassword">Mật khẩu mới</label>
+                                        <input type="password" id="newpassword" value="" name="newpassword" class="form-control" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="repassword">Nhập lại mật khẩu mới</label>
                                         <input type="password" id="repassword" value="" name="repassword" class="form-control" required/>
                                     </div>
-                                    <button type="submit" name="submit" class="btn btn-success btn-md">Thêm</button>
+                                    <input type="text" id="id" value="<%=request.getParameter("id") %>" name="id" class="form-control invisible position-absolute" readonly/>
+                                    <button type="submit" name="submit" class="btn btn-success btn-md">Đổi mật khẩu</button>
                                 </form>
                             </div>
                         </div>

@@ -19,14 +19,17 @@ import utils.FileUtil;
 @MultipartConfig
 public class AdminAddSongController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	CategoryDAO catDAO = null;
+	SongDAO songDAO = null;
 
 	public AdminAddSongController() {
 		super();
+		catDAO = new CategoryDAO();
+		songDAO = new SongDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		CategoryDAO catDAO = new CategoryDAO();
 		List<Category> listCat = (List<Category>) catDAO.getAll();
 		request.setAttribute("listCat", listCat);
 
@@ -37,7 +40,6 @@ public class AdminAddSongController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		SongDAO songDAO = new SongDAO();
 		String name = request.getParameter("name");
 		String preview = request.getParameter("preview");
 		String detail = request.getParameter("detail");

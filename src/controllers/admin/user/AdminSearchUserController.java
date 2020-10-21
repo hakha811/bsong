@@ -14,23 +14,26 @@ import models.User;
 
 public class AdminSearchUserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public AdminSearchUserController() {
-        super();
-    }
+	UserDAO userDAO = null;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	response.sendRedirect(request.getContextPath()+"/admin/user");
-    }
+	public AdminSearchUserController() {
+		super();
+		userDAO = new UserDAO();
+	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.sendRedirect(request.getContextPath() + "/admin/user");
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		UserDAO userDAO = new UserDAO();
 		String name = request.getParameter("name") == null ? "" : request.getParameter("name");
 		List<User> listUser = userDAO.getItemByName(name);
-		
+
 		request.setAttribute("listUser", listUser);
-		
+
 		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/user/index.jsp");
 		rd.forward(request, response);
 	}

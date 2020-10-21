@@ -10,27 +10,19 @@
   	if(request.getAttribute("listSong") != null) {
   		List<Song> listSong = (List<Song>)request.getAttribute("listSong");
   		for(Song song : listSong) {
+  			String urlSlug = request.getContextPath()+"/chi-tiet/"+StringUtil.makeSlug(song.getName())+"-"+song.getId()+".html";
+			String picture = "".equals(song.getPicture())?"songdefault.jpg":song.getPicture();
   %>
   	<div class="article">
-      <h2><a href="<%=request.getContextPath()%>/detail?id=<%=song.getId()%>" title="<%=song.getName() %>"><%=song.getName() %></a></h2>
+      <h2><a href="<%=urlSlug %>" title="<%=song.getName() %>"><%=song.getName() %></a></h2>
       <p class="infopost">Ngày đăng: <%=song.getDate_create() %> Lượt xem: <%=song.getCounter() %> <a href="<%=request.getContextPath()%>/detail?id=<%=song.getId()%>" class="com"><span><%=++numSong %></span></a></p>
       <div class="clr"></div>
       <div class="img">
-      <%
-        	if(!"".equals(song.getPicture())) {
-        %>
-			<img src="<%=request.getContextPath() %>/templates/images/<%=song.getPicture() %>" width="177" height="213" alt="<%=song.getName() %>"/>
-        <%
-        	} else {
-        %>
-        	<img src="<%=request.getContextPath() %>/templates/images/songdefault.jpg" width="177" height="213" alt="Không có hình ảnh"/>
-        <%
-        	}
-        %>
+		<img src="<%=request.getContextPath() %>/templates/images/<%=picture %>" width="177" height="213" alt="<%=song.getName() %>"/>
       </div>
       <div class="post_content">
         <p><%=song.getPreview_text() %></p>
-        <p class="spec"><a href="<%=request.getContextPath()%>/detail?id=<%=song.getId()%>" class="rm">Chi tiết &raquo;</a></p>
+        <p class="spec"><a href="<%=urlSlug %>" class="rm">Chi tiết &raquo;</a></p>
       </div>
       <div class="clr"></div>
     </div>

@@ -14,14 +14,15 @@ import models.Category;
 
 public class AdminIndexCatController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	CategoryDAO catDAO = null;
 
 	public AdminIndexCatController() {
 		super();
+		catDAO = new CategoryDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		CategoryDAO catDAO = new CategoryDAO();
 		ArrayList<Category> listCat = (ArrayList<Category>) catDAO.getAll();
 		request.setAttribute("listCat", listCat);
 

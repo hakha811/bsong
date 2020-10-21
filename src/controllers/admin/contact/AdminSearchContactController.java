@@ -14,9 +14,11 @@ import models.Contact;
 
 public class AdminSearchContactController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	ContactDAO contactDAO = null;
 
 	public AdminSearchContactController() {
 		super();
+		contactDAO = new ContactDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -27,7 +29,6 @@ public class AdminSearchContactController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		ContactDAO contactDAO = new ContactDAO();
 		String name = request.getParameter("name") == null ? "" : request.getParameter("name");
 		List<Contact> listContact = contactDAO.getItemByName(name);
 

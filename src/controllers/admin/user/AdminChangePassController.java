@@ -8,20 +8,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import daos.RoleDAO;
 import daos.UserDAO;
-import models.Role;
 import models.User;
+import utils.StringUtil;
 
-public class AdminEditUserController extends HttpServlet {
+public class AdminChangePassController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	UserDAO userDAO = null;
-	RoleDAO roleDAO = null;
 
-	public AdminEditUserController() {
+	public AdminChangePassController() {
 		super();
 		userDAO = new UserDAO();
-		roleDAO = new RoleDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -39,19 +36,18 @@ public class AdminEditUserController extends HttpServlet {
 			return;
 		}
 
-		String role = roleDAO.getRole(user.getId());
 		request.setAttribute("user", user);
-		request.setAttribute("role", role);
 
-		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/user/edit.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/user/changepass.jsp");
 		rd.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String name = request.getParameter("name");
-		String role = request.getParameter("role");
+		String password = StringUtil.md5(request.getParameter("password"));
+		String newpassword = StringUtil.md5(request.getParameter("newpassword"));
+		String repassword = StringUtil.md5(request.getParameter("repassword"));
 		int id = 0;
 		try {
 			id = Integer.parseInt(request.getParameter("id"));
@@ -59,15 +55,23 @@ public class AdminEditUserController extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/404");
 			return;
 		}
+		
+		User user = userDAO.isUser(userDAO.getItemById(id).getUsername(), password);
+		if (user == null) {
+			response.sendRedirect(request.getContextPath() + "/admin/user/changepass?id=" + id + "&msg=2");
+			return;
+		}
+		if (!newpassword.equals(repassword)) {
+			response.sendRedirect(request.getContextPath() + "/admin/user/changepass?id=" + id + "&msg=1");
+			return;
+		}
 
-		User user = new User(id, "", "", name);
+		user.setPassword(newpassword);	
 		int result = userDAO.updateItem(user);
-
 		if (result > 0) {
-			roleDAO.updateItem(new Role(id, role));
 			response.sendRedirect(request.getContextPath() + "/admin/user?msg=2");
 		} else {
-			response.sendRedirect(request.getContextPath() + "/admin/user?id="+id+"&msg=0");
+			response.sendRedirect(request.getContextPath() + "/admin/user/changepass?id=\"+id+\"&msg=0");
 		}
 	}
 

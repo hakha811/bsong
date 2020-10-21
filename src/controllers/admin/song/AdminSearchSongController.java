@@ -14,9 +14,11 @@ import models.Song;
 
 public class AdminSearchSongController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	SongDAO songDAO = null;
 
 	public AdminSearchSongController() {
 		super();
+		songDAO = new SongDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -27,7 +29,6 @@ public class AdminSearchSongController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		SongDAO songDAO = new SongDAO();
 		String name = request.getParameter("name") == null ? "" : request.getParameter("name");
 		List<Song> listSong = songDAO.getItemByName(name);
 

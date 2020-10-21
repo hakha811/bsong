@@ -14,18 +14,19 @@ import models.User;
 
 public class AdminIndexUserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	UserDAO userDAO = null;
 
 	public AdminIndexUserController() {
 		super();
+		userDAO = new UserDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		UserDAO userDAO = new UserDAO();
 		List<User> listUser = userDAO.getAll();
-		
+
 		request.setAttribute("listUser", listUser);
-		
+
 		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/user/index.jsp");
 		rd.forward(request, response);
 	}
