@@ -33,6 +33,7 @@ public class AdminSearchCatController extends HttpServlet {
 		List<Category> listCat = catDAO.getItemsByName(name);
 
 		request.setAttribute("listCat", listCat);
+		request.setAttribute("search", true);
 
 		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/cat/index.jsp");
 		rd.forward(request, response);

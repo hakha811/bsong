@@ -8,6 +8,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>AdminCP | VinaEnter Edu</title>
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <!-- BOOTSTRAP STYLES-->
 <link
 	href="<%=request.getContextPath()%>/templates/admin/assets/css/bootstrap.css"
@@ -23,6 +24,8 @@
 <!-- GOOGLE FONTS-->
 <link href='http://fonts.googleapis.com/css?family=Open+Sans'
 	rel='stylesheet' type='text/css' />
+<!-- JQUERY -->
+<script src="<%=request.getContextPath() %>/templates/admin/assets/js/jquery-3.2.1.js"></script>
 </head>
 <%
 	if (!AuthUtil.checkLogin(request, response)) {

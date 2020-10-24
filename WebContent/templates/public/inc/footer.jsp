@@ -5,7 +5,7 @@
   <div class="footer">
     <div class="footer_resize">
       <p class="lf">Copyright &copy; <a href="#">VinaEnter Edu</a>. All Rights Reserved</p>
-      <p class="rf">Code by Gia Huy - Khóa JAVA17</a></p>
+      <p class="rf">Code by Anh Kha - Khóa JAVA38</a></p>
       <div style="clear:both;"></div>
     </div>
   </div>

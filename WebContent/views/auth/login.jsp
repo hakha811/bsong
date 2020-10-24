@@ -70,6 +70,9 @@
 													type="password" id="password" name="password"
 													class="form-control" required />
 											</div>
+											<div class="form-group">
+												<a href="<%=request.getContextPath() %>/auth/register">Register</a>
+											</div>
 											<button type="submit" name="submit"
 												class="btn btn-success btn-md">Đăng nhập</button>
 										</form>

@@ -1,3 +1,6 @@
+<%@page import="daos.PictureDAO"%>
+<%@page import="models.Picture"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <!DOCTYPE html>
@@ -26,7 +29,19 @@
       </div>
       <div class="clr"></div>
       <div class="slider">
-        <div id="coin-slider"><a href="#"><img src="<%=request.getContextPath() %>/templates/public/images/slide1.jpg" width="935" height="307" alt="" /></a> <a href="#"><img src="images/slide2.jpg" width="935" height="307" alt="" /></a> <a href="#"><img src="images/slide3.jpg" width="935" height="307" alt="" /></a></div>
+        <div id="coin-slider">
+        <%
+        	PictureDAO pictureDAO = new PictureDAO();
+        	List<Picture> list = pictureDAO.getAll();
+        	if(list != null) {
+        		for(Picture pic : list) {
+        %>
+        <a href="#"><img src="<%=request.getContextPath() %>/templates/images/<%=pic.getName() %>" width="935" height="307" alt="" /></a>
+        <%
+        		}
+        	}
+        %>
+        </div>
         <div class="clr"></div>
       </div>
       <div class="clr"></div>

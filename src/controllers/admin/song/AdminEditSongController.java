@@ -51,7 +51,7 @@ public class AdminEditSongController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		List<Category> listCat = (List<Category>) catDAO.getAll();
 		request.setAttribute("listCat", listCat);
-		
+
 		int id = 0;
 		String name = request.getParameter("name");
 		String preview = request.getParameter("preview");
@@ -70,18 +70,13 @@ public class AdminEditSongController extends HttpServlet {
 		song.setCat(new Category(cat_id, ""));
 
 		String fileName = FileUtil.uploadImage("picture", request);
-		if(!"".equals(fileName)) {
-			song.setPicture(fileName);
-		}
+		song.setPicture(fileName);
 
-		request.setAttribute("song", song);
 		int result = songDAO.updateItem(song);
 		if (result > 0) {
 			response.sendRedirect(request.getContextPath() + "/admin/song?msg=2");
-			return;
 		} else {
-			response.sendRedirect(request.getContextPath() + "/admin/song?msg=0");
-			return;
+			response.sendRedirect(request.getContextPath() + "/admin/song?id="+id+"&msg=0");
 		}
 	}
 

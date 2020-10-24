@@ -37,17 +37,12 @@ public class AdminAddUserController extends HttpServlet {
 		String name = request.getParameter("name");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		String repassword = request.getParameter("repassword");
 		String role = request.getParameter("role");
 		User user = new User(0, username, "", name);
 		request.setAttribute("user", user);
 
-		if (!password.equals(repassword)) {
+		if (!userDAO.checkUsername(username)) {
 			RequestDispatcher rd = request.getRequestDispatcher("/views/admin/user/add.jsp?msg=0");
-			rd.forward(request, response);
-			return;
-		} else if (!userDAO.checkUsername(username)) {
-			RequestDispatcher rd = request.getRequestDispatcher("/views/admin/user/add.jsp?msg=1");
 			rd.forward(request, response);
 			return;
 		}
@@ -58,13 +53,10 @@ public class AdminAddUserController extends HttpServlet {
 		if (result > 0) {
 			int id = userDAO.getIdByName(username);
 			roleDAO.addItem(new Role(id, role));
-
 			response.sendRedirect(request.getContextPath() + "/admin/user?msg=1");
-			return;
 		} else {
-			RequestDispatcher rd = request.getRequestDispatcher("/views/admin/user/add.jsp?msg=2");
+			RequestDispatcher rd = request.getRequestDispatcher("/views/admin/user/add.jsp?msg=1");
 			rd.forward(request, response);
-			return;
 		}
 	}
 

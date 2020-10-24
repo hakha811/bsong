@@ -27,6 +27,27 @@ public class CategoryDAO extends AbstractDAO {
 		}
 		return list;
 	}
+	
+	public List<Category> getItems(int begin, int end) {
+		List<Category> list = new ArrayList<Category>();
+		final String sql = "SELECT id,name FROM categories ORDER BY id DESC LIMIT ?, ?";
+		conn = DBConnectionUtil.getConnection();
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, begin);
+			pst.setInt(2, end);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				Category cat = new Category(rs.getInt("id"), rs.getString("name"));
+				list.add(cat);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnectionUtil.close(conn, rs, pst);
+		}
+		return list;
+	}
 
 	public Category getItemById(int id) {
 		Category cat = null;

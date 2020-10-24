@@ -102,5 +102,37 @@
 <script>
 	document.getElementById("song").classList.add('active-menu');
 </script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#form").validate({
+		errorPlacement: function(error, element) {
+			$(element).closest("form").find('label[for="' + $(element).attr('id') + '"]').append(error);
+		},
+		errorElement: "span",
+		rules : {
+			name : {
+				required : true,
+			},
+			preview : {
+				required : true,
+			},
+			detail : {
+				required : true,
+			}
+		},
+		messages: {
+			name : {
+				required : " (Vui lòng nhập tên bài hát)",
+			},
+			preview : {
+				required : " (Vui lòng nhập giới thiệu bài hát)",
+			},
+			detail : {
+				required : " (Vui lòng nhập mô tả bài hát)",
+			}
+		}
+	})
+});
+</script>
 <!-- /. PAGE WRAPPER  -->
 <%@ include file="/templates/admin/inc/footer.jsp"%>

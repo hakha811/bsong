@@ -49,7 +49,7 @@
                                 <form role="form" action="<%=request.getContextPath() %>/admin/cat/add" method="post" id="form">
                                     <div class="form-group">
                                         <label for="name">Tên danh mục</label>
-                                        <input type="text" id="name" value="<%=name %>" name="name" class="form-control" required/>
+                                        <input type="text" id="name" value="<%=name %>" name="name" class="form-control"/>
                                     </div>
                                     <button type="submit" name="submit" class="btn btn-success btn-md">Thêm</button>
                                 </form>
@@ -66,6 +66,26 @@
 </div>
 <script>
     document.getElementById("category").classList.add('active-menu');
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#form").validate({
+		errorPlacement: function(error, element) {
+			$(element).closest("form").find('label[for="' + $(element).attr('id') + '"]').append(error);
+		},
+		errorElement: "span",
+		rules : {
+			name : {
+				required : true,
+			}
+		},
+		messages: {
+			name : {
+				required : " (Vui lòng nhập danh mục)",
+			}
+		}
+	})
+});
 </script>
 <!-- /. PAGE WRAPPER  -->
 <%@ include file="/templates/admin/inc/footer.jsp" %>

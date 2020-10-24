@@ -44,7 +44,7 @@ public class AdminAddSongController extends HttpServlet {
 		String preview = request.getParameter("preview");
 		String detail = request.getParameter("detail");
 		int cat_id = Integer.parseInt(request.getParameter("category"));
-		Song song = new Song(0, name, preview, detail, null, "", 0, new Category(cat_id, ""));
+		Song song = new Song(name, preview, detail, new Category(cat_id, ""));
 
 		String fileName = FileUtil.uploadImage("picture", request);
 		song.setPicture(fileName);
@@ -54,7 +54,7 @@ public class AdminAddSongController extends HttpServlet {
 		if (result > 0) {
 			response.sendRedirect(request.getContextPath() + "/admin/song?msg=1");
 		} else {
-			RequestDispatcher rd = request.getRequestDispatcher("/views/admin/song/add.jsp?err=1");
+			RequestDispatcher rd = request.getRequestDispatcher("/views/admin/song/add.jsp?msg=0");
 			rd.forward(request, response);
 		}
 	}

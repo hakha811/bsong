@@ -65,5 +65,25 @@
 <script>
     document.getElementById("category").classList.add('active-menu');
 </script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#form").validate({
+		errorPlacement: function(error, element) {
+			$(element).closest("form").find('label[for="' + $(element).attr('id') + '"]').append(error);
+		},
+		errorElement: "span",
+		rules : {
+			name : {
+				required : true,
+			}
+		},
+		messages: {
+			name : {
+				required : " (Vui lòng nhập danh mục)",
+			}
+		}
+	})
+});
+</script>
 <!-- /. PAGE WRAPPER  -->
 <%@ include file="/templates/admin/inc/footer.jsp" %>

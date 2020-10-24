@@ -47,7 +47,6 @@ public class AdminChangePassController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String password = StringUtil.md5(request.getParameter("password"));
 		String newpassword = StringUtil.md5(request.getParameter("newpassword"));
-		String repassword = StringUtil.md5(request.getParameter("repassword"));
 		int id = 0;
 		try {
 			id = Integer.parseInt(request.getParameter("id"));
@@ -59,10 +58,6 @@ public class AdminChangePassController extends HttpServlet {
 		User user = userDAO.isUser(userDAO.getItemById(id).getUsername(), password);
 		if (user == null) {
 			response.sendRedirect(request.getContextPath() + "/admin/user/changepass?id=" + id + "&msg=2");
-			return;
-		}
-		if (!newpassword.equals(repassword)) {
-			response.sendRedirect(request.getContextPath() + "/admin/user/changepass?id=" + id + "&msg=1");
 			return;
 		}
 

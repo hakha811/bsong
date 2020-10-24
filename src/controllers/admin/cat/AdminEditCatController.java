@@ -54,7 +54,7 @@ public class AdminEditCatController extends HttpServlet {
 		if (result > 0) {
 			response.sendRedirect(request.getContextPath() + "/admin/cat?msg=2");
 		} else {
-			response.sendRedirect(request.getContextPath() + "/admin/cat?msg=0");
+			response.sendRedirect(request.getContextPath() + "/admin/cat?id="+id+"&msg=0");
 		}
 	}
 

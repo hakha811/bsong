@@ -80,7 +80,7 @@
                                         <td class="center"><%=user.getFullname() %></td>
                                         <td class="center">
                                             <a href="<%=request.getContextPath() %>/admin/user/edit?id=<%=user.getId() %>" title="" class="btn btn-primary"><i class="fa fa-edit "></i> Sửa</a>
-                                            <a href="<%=request.getContextPath() %>/admin/user/del?id=<%=user.getId() %>" title="" class="btn btn-danger"><i class="fa fa-pencil"></i> Xóa</a>
+                                            <a href="<%=request.getContextPath() %>/admin/user/del?id=<%=user.getId() %>" onclick="return confirm('Bạn có muốn xóa?')" title="" class="btn btn-danger"><i class="fa fa-pencil"></i> Xóa</a>
                                         </td>
                                     </tr>
                                     <%
@@ -90,6 +90,66 @@
                                 </tbody>
                             </table>
                             <div class="row">
+                           	<%
+                           		if(request.getAttribute("listUser") != null && request.getAttribute("search") == null) {
+                           			int currentPage = (int)request.getAttribute("currentPage");
+                           			int numOfPages = (int)request.getAttribute("numOfPages");
+                           	%>
+                                <div class="col-sm-6">
+                                    <div class="dataTables_info" id="dataTables-example_info" style="margin-top:27px">Trang <%=currentPage %> trên <%=numOfPages %></div>
+                                </div>
+                                <div class="col-sm-6" style="text-align: right;">
+                                    <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
+                                        <ul class="pagination">
+                                        <%
+                                        	if(currentPage > 1) {
+                                        %>
+                                            <li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="<%=request.getContextPath() %>/admin/user?page=<%=currentPage-1 %>">Trang trước</a></li>
+                                       	<%
+                                        	}
+                                        	if(numOfPages-currentPage <= 2) {
+                                        		if(numOfPages <= 3) {
+		                                        	for(int i = 1; i <= numOfPages; i++) {
+		                                        		if(currentPage==i) {
+                                       	%>
+                                            <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="<%=request.getContextPath() %>/admin/user?page=<%=i %>"><%=i %></a></li>
+										<%
+	                                        			} else {
+										%>
+											<li class="paginate_button" aria-controls="dataTables-example" tabindex="0"><a href="<%=request.getContextPath() %>/admin/user?page=<%=i %>"><%=i %></a></li>
+										<%
+		                                        		}
+		                                        	}
+	                                        	} else {
+	                                        		for(int i = currentPage; i <= numOfPages; i++) {
+		                                        		if(currentPage==i) {
+                                       	%>
+                                            <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="<%=request.getContextPath() %>/admin/user?page=<%=currentPage %>"><%=currentPage %></a></li>
+										<%
+	                                        			} else {
+										%>
+											<li class="paginate_button" aria-controls="dataTables-example" tabindex="0"><a href="<%=request.getContextPath() %>/admin/user?page=<%=i %>"><%=i %></a></li>
+										<%
+		                                        		}
+	                                        		}
+	                                        	}
+                                        	} else {
+										%>
+											<li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="<%=request.getContextPath() %>/admin/user?page=<%=currentPage %>"><%=currentPage %></a></li>
+											<li class="paginate_button" aria-controls="dataTables-example" tabindex="0"><a href="<%=request.getContextPath() %>/admin/user?page=<%=currentPage+1 %>"><%=currentPage+1 %></a></li>
+											<li class="paginate_button" aria-controls="dataTables-example" tabindex="0"><a href="<%=request.getContextPath() %>/admin/user?page=<%=currentPage+2 %>"><%=currentPage+2 %></a></li>
+										<%
+                                        	}
+											if(currentPage < numOfPages) {
+										%>
+                                            <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="<%=request.getContextPath() %>/admin/user?page=<%=currentPage+1 %>">Trang tiếp</a></li>
+                                        <%
+                                        	}
+                           		}
+                                        %>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

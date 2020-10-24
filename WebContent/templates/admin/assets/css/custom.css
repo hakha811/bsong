@@ -389,3 +389,13 @@ line-height: 1.428571429;
 #lg-wrapper .title {
 	text-align: center;
 }
+
+#form .form-group label span.error {
+	color: red;
+}
+
+#form .form-group label {
+	width: auto;
+	display: block;
+	float: none;
+}

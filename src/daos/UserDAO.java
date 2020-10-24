@@ -27,6 +27,27 @@ public class UserDAO extends AbstractDAO {
 		return list;
 	}
 
+	public List<User> getItems(int begin, int end) {
+		List<User> list = new ArrayList<User>();
+		final String sql = "SELECT id,username,fullname FROM users ORDER BY id DESC";
+		conn = DBConnectionUtil.getConnection();
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, begin);
+			pst.setInt(2, end);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				User user = new User(rs.getInt("id"), rs.getString("username"), rs.getString("fullname"));
+				list.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnectionUtil.close(conn, rs, pst);
+		}
+		return list;
+	}
+
 	public User getItemById(int id) {
 		User user = null;
 		conn = DBConnectionUtil.getConnection();
@@ -120,11 +141,12 @@ public class UserDAO extends AbstractDAO {
 	public int updateItem(User user) {
 		int result = 0;
 		conn = DBConnectionUtil.getConnection();
-		final String sql = "UPDATE users SET fullname = ? WHERE id = ?";
+		final String sql = "UPDATE users SET username = ?, fullname = ? WHERE id = ?";
 		try {
 			pst = conn.prepareStatement(sql);
-			pst.setString(1, user.getFullname());
-			pst.setInt(2, user.getId());
+			pst.setString(1, user.getUsername());
+			pst.setString(2, user.getFullname());
+			pst.setInt(3, user.getId());
 			result = pst.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

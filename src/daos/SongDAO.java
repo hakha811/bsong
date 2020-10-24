@@ -123,14 +123,20 @@ public class SongDAO extends AbstractDAO {
 
 	public List<Song> getItems(int limit) {
 		List<Song> list = new ArrayList<Song>();
-		final String sql = "SELECT id,name FROM songs ORDER BY id DESC LIMIT ?";
+		final String sql = "SELECT * FROM songs ORDER BY id DESC LIMIT ?";
 		conn = DBConnectionUtil.getConnection();
 		try {
 			pst = conn.prepareStatement(sql);
 			pst.setInt(1, limit);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				Song song = new Song(rs.getInt("id"), rs.getString("name"));
+				Song song = new Song(rs.getInt("id"), 
+						rs.getString("name"), 
+						rs.getString("preview_text"),
+						rs.getString("detail_text"), 
+						Timestamp.valueOf(rs.getString("date_create")),
+						rs.getString("picture"), rs.getInt("counter"),
+						new Category(rs.getInt("cat_id"), ""));
 				list.add(song);
 			}
 		} catch (SQLException e) {

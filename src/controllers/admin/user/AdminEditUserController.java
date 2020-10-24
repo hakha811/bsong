@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import daos.RoleDAO;
 import daos.UserDAO;
@@ -51,7 +52,9 @@ public class AdminEditUserController extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String name = request.getParameter("name");
+		String username = request.getParameter("username");
 		String role = request.getParameter("role");
+		HttpSession session = request.getSession();
 		int id = 0;
 		try {
 			id = Integer.parseInt(request.getParameter("id"));
@@ -59,12 +62,22 @@ public class AdminEditUserController extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/404");
 			return;
 		}
+		
+		if (!userDAO.checkUsername(username)) {
+			RequestDispatcher rd = request.getRequestDispatcher("/views/admin/user?id="+id+"&msg=1");
+			rd.forward(request, response);
+			return;
+		}
 
-		User user = new User(id, "", "", name);
+		User user = new User(id, username, "", name);
 		int result = userDAO.updateItem(user);
 
 		if (result > 0) {
 			roleDAO.updateItem(new Role(id, role));
+			if(user.getUsername().equals(session.getAttribute("username"))) {
+				response.sendRedirect(request.getContextPath() + "/auth/logout");
+				return;
+			}
 			response.sendRedirect(request.getContextPath() + "/admin/user?msg=2");
 		} else {
 			response.sendRedirect(request.getContextPath() + "/admin/user?id="+id+"&msg=0");

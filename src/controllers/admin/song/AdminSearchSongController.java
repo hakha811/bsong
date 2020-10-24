@@ -33,6 +33,7 @@ public class AdminSearchSongController extends HttpServlet {
 		List<Song> listSong = songDAO.getItemByName(name);
 
 		request.setAttribute("listSong", listSong);
+		request.setAttribute("search", true);
 
 		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/song/index.jsp");
 		rd.forward(request, response);

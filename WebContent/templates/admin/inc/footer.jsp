@@ -3,8 +3,8 @@
 </div>
 <!-- /. WRAPPER  -->
 <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
-<!-- JQUERY -->
-<script src="<%=request.getContextPath() %>/templates/admin/assets/js/jquery-3.2.1.js"></script>
+<!-- JQUERY VALIDATION -->
+<script src="<%=request.getContextPath() %>/templates/admin/assets/js/jquery.validate.min.js"></script>
 <!-- BOOTSTRAP SCRIPTS -->
 <script src="<%=request.getContextPath() %>/templates/admin/assets/js/bootstrap.min.js"></script>
 <!-- METISMENU SCRIPTS -->

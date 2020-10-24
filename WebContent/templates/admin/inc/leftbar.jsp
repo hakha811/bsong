@@ -31,6 +31,9 @@
             <%
             	}
             %>
+            <li>
+                <a id="picture" href="<%=request.getContextPath()%>/admin/picture"><i class="fa fa-picture-o fa-3x"></i> Quản lý hình ảnh</a>
+            </li>
         </ul>
     </div>
 </nav>

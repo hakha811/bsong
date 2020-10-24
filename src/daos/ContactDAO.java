@@ -28,6 +28,29 @@ public class ContactDAO extends AbstractDAO {
 		}
 		return list;
 	}
+	
+	public List<Contact> getItems(int begin, int end) {
+		List<Contact> list = new ArrayList<Contact>();
+		conn = DBConnectionUtil.getConnection();
+		final String sql = "SELECT * FROM contacts ORDER BY id DESC LIMIT ?, ?";
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, begin);
+			pst.setInt(2, end);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				Contact contact = new Contact(rs.getInt("id"), rs.getString("name"), rs.getString("email"),
+						rs.getString("website"), rs.getString("message"));
+				;
+				list.add(contact);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnectionUtil.close(conn, rs, pst);
+		}
+		return list;
+	}
 
 	public Contact getItemById(int id) {
 		Contact contact = null;
@@ -136,6 +159,24 @@ public class ContactDAO extends AbstractDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public int countItems() {
+		int result = 0;
+		conn = DBConnectionUtil.getConnection();
+		final String sql = "SELECT COUNT(*) FROM contacts";
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery(sql);
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnectionUtil.close(conn, rs, st);
 		}
 		return result;
 	}

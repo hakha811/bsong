@@ -36,7 +36,7 @@ public class PublicIndexController extends HttpServlet {
 		int numOfPages = (int) Math.ceil((float) numOfItems / DefineUtil.NUMBER_PER_PAGE);
 
 		if (currentPage > numOfPages || currentPage < 1) {
-			currentPage = 1;
+			response.sendRedirect(request.getContextPath() + "/404");
 		}
 		int offSet = (currentPage - 1) * DefineUtil.NUMBER_PER_PAGE;
 
@@ -44,7 +44,6 @@ public class PublicIndexController extends HttpServlet {
 		request.setAttribute("numOfPages", numOfPages);
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("listSong", listSong);
-
 
 		RequestDispatcher rd = request.getRequestDispatcher("/views/public/index.jsp");
 		rd.forward(request, response);

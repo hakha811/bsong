@@ -19,7 +19,10 @@
 		  	<% 
 				switch(msg){
 				case 0: 
-					out.print("Có lỗi xảy ra!");
+					out.print("Tên tài khoản đã tồn tại!!!");
+					break;
+				case 1: 
+					out.print("Có lỗi xảy ra!!!");
 					break;
 				}
 		  	%>
@@ -43,11 +46,11 @@
                                 <form role="form" action="<%=request.getContextPath() %>/admin/user/edit" method="post" id="form">
                                     <div class="form-group">
                                         <label for="id">ID</label>
-                                        <input type="text" id="id" value="<%=user.getId() %>" name="id" class="form-control" readonly required/>
+                                        <input type="text" id="id" value="<%=user.getId() %>" name="id" class="form-control" readonly/>
                                     </div>
                                     <div class="form-group">
                                         <label for="name">Tên người dùng</label>
-                                        <input type="text" id="name" value="<%=user.getFullname() %>" name="name" class="form-control" required/>
+                                        <input type="text" id="name" value="<%=user.getFullname() %>" name="name" class="form-control"/>
                                     </div>
                                     <div class="form-group">
 										<label for="role">Vai trò</label> 
@@ -69,7 +72,7 @@
 									</div>
                                     <div class="form-group">
                                         <label for="username">Tên đăng nhập</label>
-                                        <input type="text" id="username" value="<%=user.getUsername() %>" name="username" class="form-control" readonly required/>
+                                        <input type="text" id="username" value="<%=user.getUsername() %>" name="username" class="form-control"/>
                                     </div>
                                     <div class="form-group">
                                         <label for="password">Mật khẩu</label>
@@ -91,6 +94,32 @@
 </div>
 <script>
     document.getElementById("user").classList.add('active-menu');
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#form").validate({
+		errorPlacement: function(error, element) {
+			$(element).closest("form").find('label[for="' + $(element).attr('id') + '"]').append(error);
+		},
+		errorElement: "span",
+		rules : {
+			name : {
+				required : true,
+			},
+			username : {
+				required : true,
+			}
+		},
+		messages: {
+			name : {
+				required : " (Vui lòng nhập họ tên)",
+			},
+			username : {
+				required : " (Vui lòng nhập tên người dùng)",
+			}
+		}
+	})
+});
 </script>
 <!-- /. PAGE WRAPPER  -->
 <%@ include file="/templates/admin/inc/footer.jsp" %>

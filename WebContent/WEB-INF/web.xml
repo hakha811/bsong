@@ -8,6 +8,14 @@
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 	
+	<!-- mapping error -->
+	<error-page>
+		<error-code>404</error-code>
+		<location>/views/error/error.jsp</location>
+	</error-page>
+	<!-- end mapping error -->
+	
+	<!-- filter -->
 	<filter>
 		<filter-name>UrlRewriteFilter</filter-name>
 		<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
@@ -18,6 +26,7 @@
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
+	<!-- end filter -->	
 
 	<!-- setting session -->
 	<session-config>
@@ -244,30 +253,12 @@
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>AdminAddContactController</servlet-name>
-		<servlet-class>controllers.admin.contact.AdminAddContactController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>AdminAddContactController</servlet-name>
-		<url-pattern>/admin/contact/add</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
 		<servlet-name>AdminDelContactController</servlet-name>
 		<servlet-class>controllers.admin.contact.AdminDelContactController</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>AdminDelContactController</servlet-name>
 		<url-pattern>/admin/contact/del</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>AdminEditContactController</servlet-name>
-		<servlet-class>controllers.admin.contact.AdminEditContactController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>AdminEditContactController</servlet-name>
-		<url-pattern>/admin/contact/edit</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -279,6 +270,53 @@
 		<url-pattern>/admin/contact/search</url-pattern>
 	</servlet-mapping>
 	<!-- end mapping admin contact -->
+	
+	<!-- mapping admin picture -->
+	<servlet>
+		<servlet-name>AdminIndexPictureController</servlet-name>
+		<servlet-class>controllers.admin.picture.AdminIndexPictureController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminIndexPictureController</servlet-name>
+		<url-pattern>/admin/picture</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AdminAddPictureController</servlet-name>
+		<servlet-class>controllers.admin.picture.AdminAddPictureController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminAddPictureController</servlet-name>
+		<url-pattern>/admin/picture/add</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AdminDelPictureController</servlet-name>
+		<servlet-class>controllers.admin.picture.AdminDelPictureController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminDelPictureController</servlet-name>
+		<url-pattern>/admin/picture/del</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AdminEditPictureController</servlet-name>
+		<servlet-class>controllers.admin.picture.AdminEditPictureController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminEditPictureController</servlet-name>
+		<url-pattern>/admin/picture/edit</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AdminSearchPictureController</servlet-name>
+		<servlet-class>controllers.admin.picture.AdminSearchPictureController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminSearchPictureController</servlet-name>
+		<url-pattern>/admin/picture/search</url-pattern>
+	</servlet-mapping>
+	<!-- end mapping admin picture -->
 
 	<!-- mapping auth -->
 	<servlet>
@@ -298,13 +336,15 @@
 		<servlet-name>LogoutController</servlet-name>
 		<url-pattern>/auth/logout</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RegisterController</servlet-name>
+		<servlet-class>controllers.auth.RegisterController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RegisterController</servlet-name>
+		<url-pattern>/auth/register</url-pattern>
+	</servlet-mapping>
 	<!-- end mapping auth -->
-
-	<!-- mapping error -->
-	<error-page>
-		<error-code>404</error-code>
-		<location>/views/error/error.jsp</location>
-	</error-page>
-	<!-- end mapping error -->
 
 </web-app>

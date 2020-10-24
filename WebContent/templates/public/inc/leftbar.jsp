@@ -46,6 +46,14 @@
 	  			String urlSlug = request.getContextPath()+"/chi-tiet/"+StringUtil.makeSlug(song.getName())+"-"+song.getId()+".html";
 	%>
 	    <li><a href="<%=urlSlug %>"><%=song.getName() %></a><br />
+	    <%
+	   		String preview = song.getPreview_text();
+	    	int length = preview.length();
+	    	if(length > 30)
+	    		length = 30;
+	    	out.print(preview.substring(0, length)+"...");
+	    %>
+	    </li>
     <%
 	  		}
 	  	}

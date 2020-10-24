@@ -33,6 +33,7 @@ public class AdminSearchUserController extends HttpServlet {
 		List<User> listUser = userDAO.getItemByName(name);
 
 		request.setAttribute("listUser", listUser);
+		request.setAttribute("search", true);
 
 		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/user/index.jsp");
 		rd.forward(request, response);

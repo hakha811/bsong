@@ -8,6 +8,7 @@
 	zoom:1;
 	position:relative;
 	float:right;
+	background-size: 1200px 400px;
 }
 .coin-slider a {
 	text-decoration:none;

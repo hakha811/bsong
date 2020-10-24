@@ -23,5 +23,12 @@ public class Song {
 		this.id = id;
 		this.name = name;
 	}
-	
+	public Song(String name, String preview_text, String detail_text, Category cat) {
+		super();
+		this.name = name;
+		this.preview_text = preview_text;
+		this.detail_text = detail_text;
+		this.cat = cat;
+	}
+
 }

@@ -33,6 +33,7 @@ public class AdminSearchContactController extends HttpServlet {
 		List<Contact> listContact = contactDAO.getItemByName(name);
 
 		request.setAttribute("listContact", listContact);
+		request.setAttribute("search", true);
 
 		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/contact/index.jsp");
 		rd.forward(request, response);
